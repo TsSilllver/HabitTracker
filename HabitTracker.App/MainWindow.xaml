@@ -1,7 +1,7 @@
 ﻿<Window x:Class="HabitTracker.App.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Habit Tracker" Height="400" Width="500">
+        Title="Habit Tracker" Height="400" Width="606">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -17,6 +17,8 @@
             <Button Content="Добавить привычку" Click="AddHabit_Click" Padding="10,5" Margin="5"/>
             <Button Content="Отметить выполнение" Click="MarkDone_Click" Padding="10,5" Margin="5"/>
             <Button Content="Статистика" Click="ShowStats_Click" Padding="10,5" Margin="5"/>
+            <Button Content="Экспорт" Click="Export_Click" Padding="10,5" Margin="5"/>
+            <Button Content="Импорт" Click="Import_Click" Padding="10,5" Margin="5"/>
         </StackPanel>
     </Grid>
 </Window>
