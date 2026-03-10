@@ -41,5 +41,36 @@ namespace HabitTracker.App
             // Теперь можно ожидать завершения загрузки
             await LoadHabitsAsync();
         }
+
+        private async void AddHabit_Click(object sender, RoutedEventArgs e)
+        {
+            var addWindow = new AddHabitWindow(_dbContext);
+            if (addWindow.ShowDialog() == true)
+            {
+                await LoadHabitsAsync(); // обновляем список
+            }
+        }
+
+        private void MarkDone_Click(object sender, RoutedEventArgs e)
+        {
+            if (HabitsListBox.SelectedItem is Habit selected)
+            {
+                var markWindow = new MarkDoneWindow(_dbContext, selected);
+                if (markWindow.ShowDialog() == true)
+                {
+                    // При необходимости можно обновить данные, но пока ничего
+                }
+            }
+            else
+            {
+                MessageBox.Show("Выберите привычку");
+            }
+        }
+
+        private void ShowStats_Click(object sender, RoutedEventArgs e)
+        {
+            // Показать диаграммы
+            MessageBox.Show("Здесь будет статистика");
+        }
     }
 }

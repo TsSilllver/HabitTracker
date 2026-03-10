@@ -1,27 +1,41 @@
 ﻿using HabitTracker.Core.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using System.IO;
-using System.Reflection.Emit;
 
-namespace HabitTracker.Core.Data;
-
-public class AppDbContext : DbContext
+namespace HabitTracker.Core.Data
 {
-    public DbSet<Habit> Habits { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    public class AppDbContext : DbContext
     {
-        string dbPath = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "HabitTracker",
-            "habits.db");
-        Directory.CreateDirectory(Path.GetDirectoryName(dbPath));
-        optionsBuilder.UseSqlite($"Data Source={dbPath}");
-    }
+        public DbSet<Habit> Habits { get; set; }
+        public DbSet<HabitRecord> HabitRecords { get; set; }
+        public DbSet<Schedule> Schedules { get; set; }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        base.OnModelCreating(modelBuilder);
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            string dbPath = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "HabitTracker",
+                "habits.db");
+            string? directory = Path.GetDirectoryName(dbPath);
+            if (directory != null) Directory.CreateDirectory(directory);
+            optionsBuilder.UseSqlite($"Data Source={dbPath}");
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<HabitRecord>()
+                .HasOne(hr => hr.Habit)
+                .WithMany(h => h.Records)
+                .HasForeignKey(hr => hr.HabitId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Schedule>()
+                .HasOne(s => s.Habit)
+                .WithMany(h => h.Schedules)
+                .HasForeignKey(s => s.HabitId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }
