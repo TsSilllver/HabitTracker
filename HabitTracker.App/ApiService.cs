@@ -1,6 +1,43 @@
-﻿using System.Net.Http;
+﻿//using System.Net.Http;
+//using System.Net.Http.Json;
+//using System.Text.Json;
+//using HabitTracker.Shared.Models;
+
+//namespace HabitTracker.App;
+
+//public class ApiService
+//{
+//    private readonly HttpClient _httpClient;
+//    private readonly string _baseUrl = "https://localhost:60381";
+
+//    public ApiService()
+//    {
+
+//        if (string.IsNullOrEmpty(_baseUrl))
+//            throw new InvalidOperationException("Base URL is not configured.");
+
+//        var handler = new HttpClientHandler();
+//        // Только для разработки — игнорируем ошибки SSL
+//        handler.ServerCertificateCustomValidationCallback = (message, cert, chain, sslPolicyErrors) => true;
+
+//        _httpClient = new HttpClient(handler);
+//        _httpClient.BaseAddress = new Uri(_baseUrl);
+//    }
+
+//    public ApiService(HttpClient httpClient)
+//    {
+//        _httpClient = httpClient;
+//        if (_httpClient.BaseAddress == null)
+//            _httpClient.BaseAddress = new Uri(_baseUrl);
+//    }
+
+//    //         Habits 
+//    public async Task<List<Habit>?> GetHabitsAsync() =>
+//        await _httpClient.GetFromJsonAsync<List<Habit>>("api/habits");
+
+using System.Net.Http;
 using System.Net.Http.Json;
-using System.Text.Json;
+using System.Threading.Tasks;
 using HabitTracker.Shared.Models;
 
 namespace HabitTracker.App;
@@ -8,9 +45,10 @@ namespace HabitTracker.App;
 public class ApiService
 {
     private readonly HttpClient _httpClient;
-    private readonly string _baseUrl = "https://localhost:60381";
+    private readonly string _baseUrl = "https://localhost:60381"; // при необходимости измените
 
-    public ApiService()
+    // Конструктор для реального использования (без параметров)
+    public ApiService() : this(new HttpClient()) 
     {
         if (string.IsNullOrEmpty(_baseUrl))
             throw new InvalidOperationException("Base URL is not configured.");
@@ -23,7 +61,14 @@ public class ApiService
         _httpClient.BaseAddress = new Uri(_baseUrl);
     }
 
-    //         Habits 
+    // Конструктор для тестов (позволяет передать настроенный HttpClient)
+    public ApiService(HttpClient httpClient)
+    {
+        _httpClient = httpClient;
+        if (_httpClient.BaseAddress == null)
+            _httpClient.BaseAddress = new Uri(_baseUrl);
+    }
+
     public async Task<List<Habit>?> GetHabitsAsync() =>
         await _httpClient.GetFromJsonAsync<List<Habit>>("api/habits");
 
@@ -49,7 +94,7 @@ public class ApiService
         return response.IsSuccessStatusCode;
     }
 
-    // ========== HabitRecords ==========
+    //            HabitRecords
     public async Task<List<HabitRecord>?> GetHabitRecordsAsync() =>
         await _httpClient.GetFromJsonAsync<List<HabitRecord>>("api/habitrecords");
 
@@ -75,7 +120,7 @@ public class ApiService
         return response.IsSuccessStatusCode;
     }
 
-    // ========== Schedules ==========
+    //            Schedules  
     public async Task<List<Schedule>?> GetSchedulesAsync() =>
         await _httpClient.GetFromJsonAsync<List<Schedule>>("api/schedules");
 

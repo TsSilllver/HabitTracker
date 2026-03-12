@@ -72,8 +72,8 @@ namespace HabitTracker.App
 
         private void ShowStats_Click(object sender, RoutedEventArgs e)
         {
-            // Показать диаграммы
-            MessageBox.Show("Здесь будет статистика");
+            var statsWindow = new StatisticsWindow(_dbContext);
+            statsWindow.ShowDialog();
         }
 
         private async void Export_Click(object sender, RoutedEventArgs e)
@@ -201,25 +201,17 @@ namespace HabitTracker.App
 
                 if (serverHabits != null)
                 {
-                    MessageBox.Show($"На сервере {serverHabits.Count} привычек.",
-                                    "Синхронизация",
-                                    MessageBoxButton.OK,
-                                    MessageBoxImage.Information);
+                    var syncWindow = new SyncWindow(serverHabits);
+                    syncWindow.ShowDialog();
                 }
                 else
                 {
-                    MessageBox.Show("Не удалось получить данные с сервера.",
-                                    "Ошибка",
-                                    MessageBoxButton.OK,
-                                    MessageBoxImage.Warning);
+                    MessageBox.Show("Не удалось получить данные с сервера.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка при обращении к серверу: {ex.Message}",
-                                "Ошибка",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Error);
+                MessageBox.Show($"Ошибка при обращении к серверу: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

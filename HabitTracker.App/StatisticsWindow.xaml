@@ -1,0 +1,16 @@
+﻿<Window x:Class="HabitTracker.App.StatisticsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        Title="Статистика" Height="450" Width="600">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <ComboBox x:Name="HabitsCombo" Margin="5" DisplayMemberPath="Name" SelectionChanged="HabitsCombo_SelectionChanged"/>
+
+        <lvc:CartesianChart Grid.Row="1" x:Name="ProgressChart" Series="{Binding Series}" LegendLocation="Top"/>
+    </Grid>
+</Window>
