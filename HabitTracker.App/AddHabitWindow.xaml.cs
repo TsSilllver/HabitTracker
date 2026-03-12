@@ -1,5 +1,5 @@
 ﻿using HabitTracker.Core.Data;
-using HabitTracker.Core.Models;
+using HabitTracker.Shared.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Windows;

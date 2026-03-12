@@ -1,4 +1,4 @@
-﻿namespace HabitTracker.Core.Models;
+﻿namespace HabitTracker.Shared.Models;
 
 public class Habit
 {
@@ -10,6 +10,6 @@ public class Habit
     public bool IsActive { get; set; } = true; // можно отключать привычку без удаления
 
     // Связи
-    public ICollection<HabitRecord> Records { get; set; } = new List<HabitRecord>();
-    public ICollection<Schedule> Schedules { get; set; } = new List<Schedule>();
+    public ICollection<HabitRecord>? Records { get; set; }
+    public ICollection<Schedule>? Schedules { get; set; }
 }

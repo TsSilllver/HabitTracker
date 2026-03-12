@@ -2,10 +2,11 @@
 using System.Linq;
 using System.Windows;
 using Microsoft.EntityFrameworkCore;
-using HabitTracker.Core.Models;
+using HabitTracker.Shared.Models;
 using HabitTracker.Core.Data;
 using System.IO;
 using Microsoft.Win32;
+using HabitTracker.App;
 
 namespace HabitTracker.App
 {
@@ -100,8 +101,8 @@ namespace HabitTracker.App
                         s.Habit = null;
                     foreach (var h in habits)
                     {
-                        h.Records = null;
-                        h.Schedules = null;
+                        h.Records = null!;
+                        h.Schedules = null!;
                     }
 
                     var exportData = new DataExport
@@ -158,8 +159,8 @@ namespace HabitTracker.App
                     {
                         habit.Id = 0;
                         // Также нужно сбросить навигационные свойства, чтобы они не мешали
-                        habit.Records = null;
-                        habit.Schedules = null;
+                        habit.Records = null!;
+                        habit.Schedules = null!;
                     }
                     foreach (var record in importData.HabitRecords)
                     {
@@ -189,6 +190,36 @@ namespace HabitTracker.App
                 {
                     MessageBox.Show($"Ошибка при импорте: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+            }
+        }
+        private async void Sync_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var api = new ApiService();
+                var serverHabits = await api.GetHabitsAsync();
+
+                if (serverHabits != null)
+                {
+                    MessageBox.Show($"На сервере {serverHabits.Count} привычек.",
+                                    "Синхронизация",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Не удалось получить данные с сервера.",
+                                    "Ошибка",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при обращении к серверу: {ex.Message}",
+                                "Ошибка",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
             }
         }
     }

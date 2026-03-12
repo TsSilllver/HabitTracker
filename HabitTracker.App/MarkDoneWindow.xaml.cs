@@ -1,5 +1,5 @@
 ﻿using HabitTracker.Core.Data;
-using HabitTracker.Core.Models;
+using HabitTracker.Shared.Models;
 using System.Windows;
 
 namespace HabitTracker.App

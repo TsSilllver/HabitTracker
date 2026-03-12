@@ -1,0 +1,6 @@
+services:
+  habittracker.server:
+    image: ${DOCKER_REGISTRY-}habittrackerserver
+    build:
+      context: .
+      dockerfile: HabitTracker.Server/Dockerfile

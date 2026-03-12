@@ -1,6 +1,6 @@
-﻿using HabitTracker.Core.Models;
+﻿
 
-namespace HabitTracker.Core.Models;
+namespace HabitTracker.Shared.Models;
 
 public class Schedule
 {

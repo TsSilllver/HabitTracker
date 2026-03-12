@@ -1,4 +1,4 @@
-﻿using HabitTracker.Core.Models;
+﻿using HabitTracker.Shared.Models;
 namespace HabitTracker.Tests;
 
 public class HabitTests

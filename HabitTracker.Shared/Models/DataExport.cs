@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace HabitTracker.Core.Models
+namespace HabitTracker.Shared.Models
 {
     public class DataExport
     {
