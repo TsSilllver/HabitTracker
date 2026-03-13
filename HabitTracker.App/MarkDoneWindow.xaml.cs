@@ -1,5 +1,6 @@
 ﻿using HabitTracker.Core.Data;
 using HabitTracker.Shared.Models;
+using System;
 using System.Windows;
 
 namespace HabitTracker.App
@@ -21,7 +22,7 @@ namespace HabitTracker.App
         {
             if (!int.TryParse(ValueTextBox.Text, out int value) || value < 0)
             {
-                MessageBox.Show("Введите корректное значение");
+                MessageBox.Show("Введите корректное значение (неотрицательное число).", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 

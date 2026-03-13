@@ -1,20 +1,39 @@
-﻿using HabitTracker.Shared.Models;
-using System.Collections.Generic;
-using System.Windows;
+﻿using System.Windows;
 
 namespace HabitTracker.App
 {
     public partial class SyncWindow : Window
     {
-        public SyncWindow(List<Habit> habits)
+        public SyncDirection SelectedDirection { get; private set; } = SyncDirection.Cancel;
+
+        public SyncWindow()
         {
             InitializeComponent();
-            HabitsDataGrid.ItemsSource = habits;
         }
 
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        private void Download_Click(object sender, RoutedEventArgs e)
         {
+            SelectedDirection = SyncDirection.Download;
             Close();
         }
+
+        private void Upload_Click(object sender, RoutedEventArgs e)
+        {
+            SelectedDirection = SyncDirection.Upload;
+            Close();
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            SelectedDirection = SyncDirection.Cancel;
+            Close();
+        }
+    }
+
+    public enum SyncDirection
+    {
+        Cancel,
+        Download,
+        Upload
     }
 }

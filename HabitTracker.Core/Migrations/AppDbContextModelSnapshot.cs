@@ -17,11 +17,15 @@ namespace HabitTracker.Core.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.13");
 
-            modelBuilder.Entity("HabitTracker.Core.Models.Habit", b =>
+            modelBuilder.Entity("HabitTracker.Shared.Models.Habit", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("ColorHex")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
@@ -45,7 +49,7 @@ namespace HabitTracker.Core.Migrations
                     b.ToTable("Habits");
                 });
 
-            modelBuilder.Entity("HabitTracker.Core.Models.HabitRecord", b =>
+            modelBuilder.Entity("HabitTracker.Shared.Models.HabitRecord", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -70,7 +74,7 @@ namespace HabitTracker.Core.Migrations
                     b.ToTable("HabitRecords");
                 });
 
-            modelBuilder.Entity("HabitTracker.Core.Models.Schedule", b =>
+            modelBuilder.Entity("HabitTracker.Shared.Models.Schedule", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -89,9 +93,9 @@ namespace HabitTracker.Core.Migrations
                     b.ToTable("Schedules");
                 });
 
-            modelBuilder.Entity("HabitTracker.Core.Models.HabitRecord", b =>
+            modelBuilder.Entity("HabitTracker.Shared.Models.HabitRecord", b =>
                 {
-                    b.HasOne("HabitTracker.Core.Models.Habit", "Habit")
+                    b.HasOne("HabitTracker.Shared.Models.Habit", "Habit")
                         .WithMany("Records")
                         .HasForeignKey("HabitId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -100,9 +104,9 @@ namespace HabitTracker.Core.Migrations
                     b.Navigation("Habit");
                 });
 
-            modelBuilder.Entity("HabitTracker.Core.Models.Schedule", b =>
+            modelBuilder.Entity("HabitTracker.Shared.Models.Schedule", b =>
                 {
-                    b.HasOne("HabitTracker.Core.Models.Habit", "Habit")
+                    b.HasOne("HabitTracker.Shared.Models.Habit", "Habit")
                         .WithMany("Schedules")
                         .HasForeignKey("HabitId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -111,7 +115,7 @@ namespace HabitTracker.Core.Migrations
                     b.Navigation("Habit");
                 });
 
-            modelBuilder.Entity("HabitTracker.Core.Models.Habit", b =>
+            modelBuilder.Entity("HabitTracker.Shared.Models.Habit", b =>
                 {
                     b.Navigation("Records");
 

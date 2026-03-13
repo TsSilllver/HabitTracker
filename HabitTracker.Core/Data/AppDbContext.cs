@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.IO;
 
-namespace HabitTracker.Core.Data;   // или HabitatTracker.Core.Data
+namespace HabitTracker.Core.Data;  
 
 public class AppDbContext : DbContext
 {

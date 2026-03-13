@@ -1,15 +1,19 @@
-﻿namespace HabitTracker.Shared.Models;
+﻿using System.Collections.Generic;
 
-public class Habit
+namespace HabitTracker.Shared.Models
 {
-    public int Id { get; set; }
-    public string Name { get; set; } = string.Empty;
-    public string? Description { get; set; }
-    public int TargetValue { get; set; } // целевое значение (например, 30 подтягиваний)
-    public string Unit { get; set; } = "раз"; // единицы измерения
-    public bool IsActive { get; set; } = true; // можно отключать привычку без удаления
+    public class Habit
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string? Description { get; set; }
+        public int TargetValue { get; set; }
+        public string Unit { get; set; } = "раз";
+        public bool IsActive { get; set; } = true;
+        public string ColorHex { get; set; } = "#1CA9C9"; // цвет по умолчанию (голубой)
 
-    // Связи
-    public ICollection<HabitRecord>? Records { get; set; }
-    public ICollection<Schedule>? Schedules { get; set; }
+        // Навигационные свойства
+        public ICollection<HabitRecord>? Records { get; set; }
+        public ICollection<Schedule>? Schedules { get; set; }
+    }
 }

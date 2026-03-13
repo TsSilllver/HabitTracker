@@ -1,12 +1,14 @@
-﻿
+﻿using System;
 
-namespace HabitTracker.Shared.Models;
-
-public class Schedule
+namespace HabitTracker.Shared.Models
 {
-    public int Id { get; set; }
-    public int HabitId { get; set; }
-    public DayOfWeek DayOfWeek { get; set; } // enum для дня недели
+    public class Schedule
+    {
+        public int Id { get; set; }
+        public int HabitId { get; set; }
+        public DayOfWeek DayOfWeek { get; set; }
 
-    public Habit? Habit { get; set; }
+        // Навигационное свойство
+        public Habit? Habit { get; set; }
+    }
 }
